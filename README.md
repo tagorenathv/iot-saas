@@ -8,20 +8,20 @@ Now-a-days IOT is gaining popularity in variety of usecases. We built IOT-SaaS, 
 
 # Tool Stack Used
 
-- All data stored in `MongoDB Atlas`
-- `Timeseries collection` for sensor_data collection with granularity: minutes and expireAfterSeconds: 86400 
-- `Atlas Search`: Search Index on device collection for fields: title with analyzers & mapping defined for Autocompletition functianality
-- `Text Index` on device collection for fields: title and description for Full-Text search functionality, including spell corrections
-- `Event-Driven` on Alerts and Notifications feature for any breached values
-- `Scheduled-Triggers` for:
+- All data stored in **`MongoDB Atlas`**
+- **`Timeseries collection`** for sensor_data collection with granularity: minutes and expireAfterSeconds: 86400 
+- **`Atlas Search`**: Search Index on device collection for fields: title with analyzers & mapping defined for Autocompletition functianality
+- **`Text Index`** on device collection for fields: title and description for Full-Text search functionality, including spell corrections
+- **`Event-Driven`** on Alerts and Notifications feature for any breached values
+- **`Scheduled-Triggers`** for:
   - simulating data every 1 minute; 
   - calculating aggregated sensor data value every 5 minutes; 
   - generating bills every month
-- `Database-Triggers` on every aggregated-value insertion on aggregated_sensor_data collection to check alert condition and insert into alert collection if any
-- Used `Realm-Functions & Realm-Web-Client SDK` for performing data manipulations present in MongoDB Atlas collections
-- Used Email/Password provider of `Realm-Authentication` for UI authentication
-- Applied `Real-DataAccess Rules` for added layer of Authorization for each collection
-- Hosted react application on `Realm-Hosting`
+- **`Database-Triggers`** on every aggregated-value insertion on aggregated_sensor_data collection to check alert condition and insert into alert collection if any
+- Used **`Realm-Functions & Realm-Web-Client SDK`** for performing data manipulations present in MongoDB Atlas collections
+- Used Email/Password provider of **`Realm-Authentication`** for UI authentication
+- Applied **`Real-DataAccess Rules`** for added layer of Authorization for each collection
+- Hosted react application on **`Realm-Hosting`**
 
 # Actual User Journey
 
@@ -167,6 +167,6 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
   - Take billId from request and userId from authorization context
   - Updated field paid:true matching billId & userId
 
-# Triggers - Collection interaction
+# Triggers - Collections interaction
 
 ![](assets/20220110_215852_image.png)
