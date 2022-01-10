@@ -1,0 +1,89 @@
+[
+    {
+        "name": "getDevices",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "subscribeDevice",
+        "private": false
+    },
+    {
+        "name": "getUserSubscription",
+        "private": false
+    },
+    {
+        "name": "getUserAlerts",
+        "private": false
+    },
+    {
+        "name": "getUserDeviceUsage",
+        "private": false
+    },
+    {
+        "name": "search",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "autocompleteTitle",
+        "private": false
+    },
+    {
+        "name": "payBill",
+        "private": false
+    },
+    {
+        "name": "resetFunc",
+        "private": true
+    },
+    {
+        "name": "getUserBills",
+        "private": false
+    },
+    {
+        "name": "getUserDashboard",
+        "private": false
+    },
+    {
+        "name": "getUserDevices",
+        "private": false
+    },
+    {
+        "name": "getDeviceById",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "getUserAggregatedDashboard",
+        "private": false
+    },
+    {
+        "name": "suspendDevice",
+        "private": false
+    },
+    {
+        "name": "activateDevice",
+        "private": false
+    },
+    {
+        "name": "aggregatedSensorData",
+        "private": true
+    },
+    {
+        "name": "validateAggregatedData",
+        "private": true
+    },
+    {
+        "name": "userDeviceUsageTracker",
+        "private": true
+    },
+    {
+        "name": "generateMonthlyUserBills",
+        "private": true
+    },
+    {
+        "name": "simulator",
+        "private": true
+    }
+]
