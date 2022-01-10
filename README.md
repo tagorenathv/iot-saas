@@ -1,6 +1,6 @@
 ### App URL: https://iot-saas-user-umzdm.mongodbstitch.com/
 
-### Demo Video: [Link1](https://watch.screencastify.com/v/GIhh6PDvAx6WIoXJ1K6ghttps:/) or [Link2](https://drive.google.com/file/d/1WX0zJvo65LyWddyfbZUBdVFOW58BaP7f/view)
+### Demo Video: [Link1](https://watch.screencastify.com/v/GIhh6PDvAx6WIoXJ1K6g) or [Link2](https://drive.google.com/file/d/1WX0zJvo65LyWddyfbZUBdVFOW58BaP7f/view)
 
 # What is IOT-SaaS?
 
@@ -30,7 +30,7 @@ User can Suspend or Resume a device from application at his convenience. Consoli
 
 # Tech Details
 
-IOT-SaaS is an ReactJS application built using MongoDB Realm Webclient SDKs and hosted in MongoDB Realm Hosting. All data is stored in MongoDB Atlas collections and manipulated using MongoDB Realm Functions. Application uses MongoDB Realm Email/Password Authentication provider. Each collection are enabled with Data Access Rules for extra layer of authorization.
+IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` and hosted in `MongoDB Realm Hosting`. All data is stored in `MongoDB Atlas` collections and manipulated using `MongoDB Realm Functions`. Application uses Email/Password `MongoDB Realm Authentication` provider. Each collection are enabled with `Data Access Rules` for extra layer of authorization.
 
 ![](assets/20220110_152103_image.png)
 
@@ -40,8 +40,8 @@ IOT-SaaS is an ReactJS application built using MongoDB Realm Webclient SDKs and 
   - devices master data created by Admin - contains device information
   - Rules: Any can Ready-Only
   - Indexes:
-    - Search index: on field title as type Autocomplete for device search AutoCompletions
-    - Text index: on field title & description
+    - `Atlas Search` index: on field title as type Autocomplete for device titles AutoCompletions
+    - `Text Index`: on field title & description for full-text search
 - user_device_subscriptions:
   - on user subscribing a device, entry will be placed to this collection
   - suspended field specifies if user Suspended or Resumed device
@@ -52,22 +52,22 @@ IOT-SaaS is an ReactJS application built using MongoDB Realm Webclient SDKs and 
   - Data will be used for Bill generation
   - Rules: User can Read-Only only their data
 - sensor_data:
-  - Timeseries collection
-  - Scheduled trigger: simulator function generates data for every record of user_device_subscriptions collection, where suspended:false into this collection for every 5 minutes.
+  - `Timeseries collection`
+  - `Scheduled trigger`: simulator function generates data for every record of user_device_subscriptions collection, where suspended:false into this collection for every 5 minutes.
   - Data in this collection represents sensors or devices generated raw data. (Simulated using scheduled trigger for proto type purpose)
   - Data has expireAfterSeconds set as 86400 and granularity as minutes
   - Rules: User can Read-Only only their data
 - aggregated_sensor_data:
-  - Scheduled trigger: aggregatedSensorData function aggregates data from sensor_data for every 15 minutes and inserts into this collection for every userId and deviceId
+  - `Scheduled trigger`: aggregatedSensorData function aggregates data from sensor_data for every 15 minutes and inserts into this collection for every userId and deviceId
   - Data in this collection represents sensors or devices aggregated data. (Aggregated and Inserted using scheduled trigger)
   - Rules: User can Read-Only only their data
 - alerts:
-  - Database trigger: validateAggregatedData function validates latest aggregated value of every userId & deviceId and checks if aggregated value is breaching alert condition of that device. If breaching, new record will be inserted into this collection.
+  - `Database trigger`: validateAggregatedData function validates latest aggregated value of every userId & deviceId and checks if aggregated value is breaching alert condition of that device. If breaching, new record will be inserted into this collection.
   - Alert condition of device is present in devices collection
   - If aggregated value breaches this condition, new entry will be inserted
   - Rules: User can Read-Only only their data
 - user_bills:
-  - Scheduled trigger: generateMonthlyUserBills function generates monthly bill using records of user_device_usage
+  - `Scheduled trigger`: generateMonthlyUserBills function generates monthly bill using records of user_device_usage
   - This contain bill details for every user for every month
   - Bill Generated formula: SUM(Each device per day price * number of devices this device is used/active/suspended:false)
   - Rules: User can Write/Read only their data
@@ -75,32 +75,32 @@ IOT-SaaS is an ReactJS application built using MongoDB Realm Webclient SDKs and 
 # Realm Triggers
 
 - simulator:
-  - Trigger Type: Scheduled
-  - Condition: <br/>*/1 * * * *
+  - Trigger Type: `Scheduled`
+  - Condition: */1 * * * *
   - Responsibility:
     - Generate mock data similar to real-world device/sensor data based on configurations at devices collection
     - For every entry of user_device_subscriptions collection where suspended:false, generate a random value from the range of min & max configured in devices collection and insert into sensor_data collection
 - aggregatedSensorData:
-  - Trigger Type: Scheduled
+  - Trigger Type: `Scheduled`
   - Condition: */10 * * * *
   - Responsibility:
     - Aggregate last 10 minutes data from sensor_data collection for every userId & deviceId and get Avg. value
     - Insert calculated avg. value into aggregated_sensor_data collection
 - validateAggregatedData:
-  - Trigger Type: Database
+  - Trigger Type: `Database`
   - Condition: For every insert operation on aggregated_sensor_data collection
   - Responsibility:
     - Get avg. value from inserted data of aggregated_sensor_data collection came from trigger event
     - Get alert condition of current device by id from devices collection
     - Check if alert condition breached. If breached, insert new entry to alerts collection
 - userDeviceUsageTracker:
-  - Trigger Type: Scheduled
+  - Trigger Type: `Scheduled`
   - Condition: 0 0 * * *
   - Responsibility:
     - On Every day, gets records from user_device_subscriptions collection where suspended:false and insert a record into user_device_usage collection
     - This inserted data into user_device_usage collection is further used for billing purpose
 - generateMonthlyUserBills:
-  - Trigger Type: Scheduled
+  - Trigger Type: `Scheduled`
   - Condition: 0 0 1 * *
   - Responsibility:
     - On Every month, get records from user_device_usage collection with aggregation to get records as userId grouped by deviceId and days used count
