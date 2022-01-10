@@ -1,0 +1,16 @@
+{
+    "id": "61dc76ad639e7eb85e4580fa",
+    "name": "userDeviceUsageTracker",
+    "type": "SCHEDULED",
+    "config": {
+        "schedule": "0 0 * * *"
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "userDeviceUsageTracker"
+            }
+        }
+    }
+}

@@ -1,3 +1,5 @@
+### Demo URL: https://iot-saas-user-umzdm.mongodbstitch.com/
+
 # What is IOT-SaaS?
 
 Now-a-days IOT is gaining popularity in variety of usecases. We built IOT-SaaS, a prototype for IOT based usage in Aquaculture. Users can register to platform, subscribe for a device and get Real-Time alerts and Dashboard on the fly.
@@ -54,10 +56,8 @@ IOT-SaaS is an ReactJS application built using MongoDB Realm Webclient SDKs and 
   - Data has expireAfterSeconds set as 86400 and granularity as minutes
   - Rules: User can Read-Only only their data
 - aggregated_sensor_data:
-  - Timeseries collection
   - Scheduled trigger: aggregatedSensorData function aggregates data from sensor_data for every 15 minutes and inserts into this collection for every userId and deviceId
   - Data in this collection represents sensors or devices aggregated data. (Aggregated and Inserted using scheduled trigger)
-  - Data has expireAfterSeconds set as 86400 and granularity as minutes
   - Rules: User can Read-Only only their data
 - alerts:
   - Database trigger: validateAggregatedData function validates latest aggregated value of every userId & deviceId and checks if aggregated value is breaching alert condition of that device. If breaching, new record will be inserted into this collection.
@@ -147,3 +147,7 @@ IOT-SaaS is an ReactJS application built using MongoDB Realm Webclient SDKs and 
 - payBill
   - Take billId from request and userId from authorization context
   - Updated field paid:true matching billId & userId
+
+# Triggers - Collection interaction
+
+![](assets/20220110_215852_image.png)

@@ -1,0 +1,16 @@
+{
+    "id": "61dc76d8639e7eb85e45a531",
+    "name": "generateMonthlyUserBills",
+    "type": "SCHEDULED",
+    "config": {
+        "schedule": "0 0 1 * *"
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "generateMonthlyUserBills"
+            }
+        }
+    }
+}

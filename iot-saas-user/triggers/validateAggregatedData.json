@@ -1,0 +1,26 @@
+{
+    "id": "61dc766e6416634709d4a3d9",
+    "name": "validateAggregatedData",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT"
+        ],
+        "database": "iot-saas",
+        "collection": "aggregated_sensor_data",
+        "service_name": "mongodb-atlas",
+        "match": {},
+        "project": {},
+        "full_document": true,
+        "full_document_before_change": false,
+        "unordered": false
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "validateAggregatedData"
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "id": "61dc76faa2660ba02da8fee5",
+    "name": "simulator",
+    "type": "SCHEDULED",
+    "config": {
+        "schedule": "*/1 * * * *"
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "simulator"
+            }
+        }
+    }
+}

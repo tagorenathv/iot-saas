@@ -1,0 +1,16 @@
+{
+    "id": "61dc762d9f5076cb5bafcd29",
+    "name": "aggregatedSensorData",
+    "type": "SCHEDULED",
+    "config": {
+        "schedule": "*/5 * * * *"
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "aggregatedSensorData"
+            }
+        }
+    }
+}
