@@ -3,7 +3,7 @@
 ### Demo Video: [Link1](https://watch.screencastify.com/v/GIhh6PDvAx6WIoXJ1K6g) or [Link2](https://drive.google.com/file/d/1WX0zJvo65LyWddyfbZUBdVFOW58BaP7f/view)
 
 # Table of Content
-- [What is IOT-SaaS?](#what-is-iot-saas)
+- [What is IoT-SaaS?](#what-is-iot-saas)
 - [Tool Stack Used](#tool-stack-used)
 - [Actual User Journey](#actual-user-journey)
 - [Modified User Journey (for Hackathon)](#modified-user-journey-for-hackathon)
@@ -15,9 +15,9 @@
   - [Realm Functions](#realm-functions)
   - [Triggers - Collections interaction](#triggers---collections-interaction)
 
-# What is IOT-SaaS?
+# What is IoT-SaaS?
 
-Now-a-days IOT is gaining popularity in variety of usecases. We built IOT-SaaS, a prototype for IOT based usage in Aquaculture. Users can register to platform, subscribe for a device and get Real-Time alerts and Dashboard on the fly.
+Nowadays, SaaS platforms & IoT devices are gaining popularity in a variety of use-cases. I built IOT-SaaS, a prototype for IOT based usage in Aquaculture. Users can register to platform, subscribe for a device and get Real-Time alerts and Dashboard on the fly.
 
 # Tool Stack Used
 
