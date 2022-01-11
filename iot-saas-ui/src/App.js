@@ -7,7 +7,7 @@ import { Row, Col } from 'antd';
 import { useState } from 'react';
 import RegisterForm from './register_form';
 
-export const app = new Realm.App({ id: "iot-saas-user-umzdm" });
+export const app = new Realm.App({ id: "application-0-rgpfa" });
 
 function App() {
 
