@@ -82,22 +82,18 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
 * Once done, we will get message page with: `Okay, MongoDB Realm was installed on the account.` Now, navigate to MongoDB tab and continue app creation setup. Select your repo from dropdown where MongoRealm installed as below. Keep directory as `/app`.
 
   ![](assets/20220111_110921_image.png)
-* Click `Create Realm Application`. After a while, we could see our application created and a commit by `mongodb-realm` to above repository
-
-  ![](assets/20220111_111108_image.png)
+* Click `Create Realm Application`. After a while, we could see our application created and a by `mongodb-realm` to above repository
 * Clone above repository to add necessary files needed for this project.
 * Clone master repo: https://github.com/tagorenathv/iot-saas which has project files to add.
 * Copy all folders from master repo iot-saas-realm-confs folder to linked repo app folder.
 
   ![](assets/20220111_112417_image.png)
 * Git add, commit & push changes of linked repo. In a while, we could see mongodb-realm deployed all these changes to our application. Github commit will also be added to repo.
-
+  
   ![](assets/20220111_112907_image.png)
 
   ![](assets/20220111_113312_image.png)
 * After deployment succesful, we can see Functions, Triggers, Rules Authentication inplace. Click on each section to see respective files in place.
-
-  ![](assets/20220111_113528_image.png)
 * Click `App Settings` from left menu options, and copy `Application ID`
 * Go to master repo `iot-saas-ui` folder. Open `App.js` from `src` folder. Paste above copied Application Id at line:10
 * Run `npm install` and `npm start`
