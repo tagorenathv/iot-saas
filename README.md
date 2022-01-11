@@ -133,8 +133,9 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
 * Exeprience mongo madness...!
 
 # Project Internals Explained
-
 **TL;DR,**
+
+Wondering Why? As mentioned, I included random features to baseline idea to explore & experience Mongo Ecosystem as much possible, I felt to spend sometime to express what has been done internally.
 
 ## Collections, Indexes & Rules
 
