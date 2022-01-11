@@ -2,6 +2,18 @@
 
 ### Demo Video: [Link1](https://watch.screencastify.com/v/GIhh6PDvAx6WIoXJ1K6g) or [Link2](https://drive.google.com/file/d/1WX0zJvo65LyWddyfbZUBdVFOW58BaP7f/view)
 
+- [What is IOT-SaaS?](#what-is-iot-saas)
+- [Tool Stack Used](#tool-stack-used)
+- [Actual User Journey](#actual-user-journey)
+- [Modified User Journey (for Hackathon)](#modified-user-journey-for-hackathon)
+- [Tech Details](#tech-details)
+- [Setup Guide](#setup-guide)
+- [Project Internals Explained](#project-internals-explained)
+  - [Collections, Indexes & Rules](#collections-indexes--rules)
+  - [Realm Triggers](#realm-triggers)
+  - [Realm Functions](#realm-functions)
+  - [Triggers - Collections interaction](#triggers---collections-interaction)
+
 # What is IOT-SaaS?
 
 Now-a-days IOT is gaining popularity in variety of usecases. We built IOT-SaaS, a prototype for IOT based usage in Aquaculture. Users can register to platform, subscribe for a device and get Real-Time alerts and Dashboard on the fly.
@@ -9,13 +21,13 @@ Now-a-days IOT is gaining popularity in variety of usecases. We built IOT-SaaS, 
 # Tool Stack Used
 
 - All data stored in **`MongoDB Atlas`**
-- **`Timeseries collection`** for sensor_data collection with granularity: minutes and expireAfterSeconds: 86400 
+- **`Timeseries collection`** for sensor_data collection with granularity: minutes and expireAfterSeconds: 86400
 - **`Atlas Search`**: Search Index on device collection for fields: title with analyzers & mapping defined for Autocompletition functianality
 - **`Text Index`** on device collection for fields: title and description for Full-Text search functionality, including spell corrections
 - **`Event-Driven`** on Alerts and Notifications feature for any breached values
 - **`Scheduled-Triggers`** for:
-  - simulating data every 1 minute; 
-  - calculating aggregated sensor data value every 5 minutes; 
+  - simulating data every 1 minute;
+  - calculating aggregated sensor data value every 5 minutes;
   - generating bills every month
 - **`Database-Triggers`** on every aggregated-value insertion on aggregated_sensor_data collection to check alert condition and insert into alert collection if any
 - Used **`Realm-Functions & Realm-Web-Client SDK`** for performing data manipulations present in MongoDB Atlas collections
@@ -51,14 +63,89 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
 
 ![](assets/20220110_152103_image.png)
 
-# Collections, Indexes & Rules
+# Setup Guide
+
+- Login to MongoDB Atlas and create a cluster. No account yet? [Register now](https://www.mongodb.com/cloud/atlas/register). Free-Tier clusters available too.
+
+* For this project, we used Timeseries collection. This is available from Atlas v5 cluster. Select cluster version:5 (as of when writing this)
+
+  ![](assets/20220111_104523_image.png)
+* If possible make clusterName as iot-saas to reduce changes going forward. In Additional Settings MongoDB 5.0 is mandatory from above image. Rest are as you need.
+* Once cluster is ready, go to `Realm` and click `Create a New App`
+* Fill Name as needed and select above created cluster from drop-down to link datasource to our application. `iot-saas` for me.
+
+  ![](assets/20220111_105255_image.png)
+* Connect to Github to make life easy. Click `install Realm on Github` and follow steps to authorize and setup on a repo. For me it looks like below:
+
+  ![](assets/20220111_105454_image.png)
+* Once done, we will get message page with: `Okay, MongoDB Realm was installed on the account.` Now, navigate to MongoDB tab and continue app creation setup. Select your repo from dropdown where MongoRealm installed as below. Keep directory as `/app`.
+
+  ![](assets/20220111_110921_image.png)
+* Click `Create Realm Application`. After a while, we could see our application created and a commit by `mongodb-realm` to above repository
+
+  ![](assets/20220111_111108_image.png)
+* Clone above repository to add necessary files needed for this project.
+* Clone master repo: https://github.com/tagorenathv/iot-saas which has project files to add.
+* Copy all folders from master repo iot-saas-realm-confs folder to linked repo app folder.
+
+  ![](assets/20220111_112417_image.png)
+* Git add, commit & push changes of linked repo. In a while, we could see mongodb-realm deployed all these changes to our application. Github commit will also be added to repo.
+
+  ![](assets/20220111_112907_image.png)
+
+  ![](assets/20220111_113312_image.png)
+* After deployment succesful, we can see Functions, Triggers, Rules Authentication inplace. Click on each section to see respective files in place.
+
+  ![](assets/20220111_113528_image.png)
+* Click `App Settings` from left menu options, and copy `Application ID`
+* Go to master repo `iot-saas-ui` folder. Open `App.js` from `src` folder. Paste above copied Application Id at line:10
+* Run `npm install` and `npm start`
+* Now, you have app setup in your local. Hurray!!!!
+* Final step, admin app scope is excluded from this project submission. But we need devices to play around. So, we need to ingest few from backed. Not to worry, function is ready for you to trigger.
+* Click on `initialDeviceDataLoader` function and `run`. Data will be inserted.
+* Exeprience mongo madness...!
+
+# Project Internals Explained
+
+**TL;DR,**
+
+## Collections, Indexes & Rules
 
 - devices:
   - devices master data created by Admin - contains device information
   - Rules: Any can Ready-Only
   - Indexes:
     - `Atlas Search` index: on field title as type Autocomplete for device titles AutoCompletions
+
+      ```
+      {
+        "mappings": {
+          "dynamic": false,
+          "fields": {
+            "description": {
+              "analyzer": "lucene.whitespace",
+              "searchAnalyzer": "lucene.whitespace",
+              "type": "string"
+            },
+            "title": {
+              "foldDiacritics": false,
+              "maxGrams": 7,
+              "minGrams": 3,
+              "tokenization": "nGram",
+              "type": "autocomplete"
+            }
+          }
+        }
+      }
+      ```
     - `Text Index`: on field title & description for full-text search
+
+      ```
+      {
+        "title": "text",
+        "description": "text"
+      }
+      ```
 - user_device_subscriptions:
   - on user subscribing a device, entry will be placed to this collection
   - suspended field specifies if user Suspended or Resumed device
@@ -74,6 +161,8 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
   - Data in this collection represents sensors or devices generated raw data. (Simulated using scheduled trigger for proto type purpose)
   - Data has expireAfterSeconds set as 86400 and granularity as minutes
   - Rules: User can Read-Only only their data
+
+    ![](assets/20220111_115230_image.png)
 - aggregated_sensor_data:
   - `Scheduled trigger`: aggregatedSensorData function aggregates data from sensor_data for every 15 minutes and inserts into this collection for every userId and deviceId
   - Data in this collection represents sensors or devices aggregated data. (Aggregated and Inserted using scheduled trigger)
@@ -89,7 +178,7 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
   - Bill Generated formula: SUM(Each device per day price * number of devices this device is used/active/suspended:false)
   - Rules: User can Write/Read only their data
 
-# Realm Triggers
+## Realm Triggers
 
 - simulator:
   - Trigger Type: `Scheduled`
@@ -124,7 +213,7 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
     - For every user, calculate consolidated bill by sum(each device price per day * device days used in previous month)
     - device price per day available from master data collection: devices# Realm Functions
 
-# Realm Functions
+## Realm Functions
 
 - getDevices:
   - Returns all devices
@@ -167,6 +256,6 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
   - Take billId from request and userId from authorization context
   - Updated field paid:true matching billId & userId
 
-# Triggers - Collections interaction
+## Triggers - Collections interaction
 
 ![](assets/20220110_215852_image.png)
