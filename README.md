@@ -104,21 +104,9 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
 * Now, you have app setup in your local. Hurray!!!!
 * Final step, admin app scope is excluded from this project submission. But we need devices to play around. So, we need to ingest few from backed. Not to worry, function is ready for you to trigger.
 * Click on `initialDeviceDataLoader` function and `run`. Data will be inserted.
-* Exeprience mongo madness...!
-
-# Project Internals Explained
-
-**TL;DR,**
-
-## Collections, Indexes & Rules
-
-- devices:
-  - devices master data created by Admin - contains device information
-  - Rules: Any can Ready-Only
-  - Indexes:
-    - `Atlas Search` index: on field title as type Autocomplete for device titles AutoCompletions
-
-      ```
+* Create search-index and text-index on `devices` collections to get autocompelete and full-text search capabilities
+  ```
+  Search-Index:
       {
         "mappings": {
           "dynamic": false,
@@ -138,15 +126,28 @@ IOT-SaaS is an ReactJS application built using `MongoDB Realm Webclient SDKs` an
           }
         }
       }
-      ```
-    - `Text Index`: on field title & description for full-text search
-
-      ```
+  ```
+  ```
+  Text-Index:
       {
         "title": "text",
         "description": "text"
       }
-      ```
+  ```
+* Exeprience mongo madness...!
+
+# Project Internals Explained
+
+**TL;DR,**
+
+## Collections, Indexes & Rules
+
+- devices:
+  - devices master data created by Admin - contains device information
+  - Rules: Any can Ready-Only
+  - Indexes:
+    - `Atlas Search` index: on field title as type Autocomplete for device titles AutoCompletions
+    - `Text Index`: on field title & description for full-text search
 - user_device_subscriptions:
   - on user subscribing a device, entry will be placed to this collection
   - suspended field specifies if user Suspended or Resumed device
