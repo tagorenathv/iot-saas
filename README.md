@@ -1,6 +1,6 @@
-### App URL: https://iot-saas-user-umzdm.mongodbstitch.com/
+<!-- ### App URL: https://iot-saas-user-umzdm.mongodbstitch.com/ -->
 
-### Demo Video: [Link1](https://watch.screencastify.com/v/GIhh6PDvAx6WIoXJ1K6g) or [Link2](https://drive.google.com/file/d/1WX0zJvo65LyWddyfbZUBdVFOW58BaP7f/view)
+### Demo Video: [Link](https://drive.google.com/file/d/1BQeS1Lk1g_3Mn-lEJDrh5oxGd6RKVUr8/view?usp=sharing)
 
 # Table of Content
 - [What is IoT-SaaS?](#what-is-iot-saas)
